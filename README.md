@@ -1,7 +1,6 @@
-# AWS SDK for Python Sample Project
+# AWS SDK for Python S3 Project
 
-A simple Python application illustrating usage of the AWS SDK for Python (also
-referred to as `boto3`).
+Welcome. This code can help you find all the S3 object versions within a given bucket and check if versions are created within a week. 
 
 ## Requirements
 
@@ -10,19 +9,20 @@ Python 2.6.5+, 2.7, 3.3, 3.4, or 3.5. You can install `boto3` using pip:
 
     pip install boto3
 
-## Basic Configuration
+Please change the folder name in following file 
+s3_get_1week.py
+
+    bucket_name = "[YOURBUCKETNAME]]"
 
 You need to set up your AWS security credentials before the sample code is able
-to connect to AWS. You can do this by creating a file named "credentials" at ~/.aws/ 
-(`C:\Users\USER_NAME\.aws\` for Windows users) and saving the following lines in the file:
+to connect to AWS. You can do this by simple running following command 
 
-    [default]
-    aws_access_key_id = <your access key id>
-    aws_secret_access_key = <your secret key>
 
-See the [Security Credentials](http://aws.amazon.com/security-credentials) page
-for more information on getting your keys. For more information on configuring `boto3`,
-check out the Quickstart section in the [developer guide](https://boto3.readthedocs.org/en/latest/guide/quickstart.html).
+    aws configure 
+
+It will ask you for access key and token (if you don't have it, use following code to generate it)
+
+## Basic Configuration
 
 You need to make sure the credentials you're using have the correct permissions to access the Amazon S3 
 service. If you run into 'Access Denied' errors while running this sample, please follow the steps below.
@@ -32,6 +32,7 @@ service. If you run into 'Access Denied' errors while running this sample, pleas
 3. Find the AWS IAM user whose credentials you're using.
 4. Under the 'Permissions' section, attach the policy called 'AmazonS3FullAccess'
 5. Re-run the sample. Now your user should have the right permissions to run the sample.
+
 
 
 
@@ -52,41 +53,34 @@ Here's how the code works:
 Note that you'll need to have the `boto3` library installed and have the necessary AWS credentials configured in your environment for this code to work. Also, make sure to replace `'your-bucket-name'` with the name of the S3 bucket you want to list versions for.
 
 
-## 2 - Get all versions of objects in an AWS S3 bucket that are less than one week older than the current version:
-
+## 2  .  List and delete previous versions of objects in an AWS S3 bucket that are less than one week older than the adjacent version:
+ 
 bucket name and file for you. All you need to do is run the code:
 
-    python3 s3_get_1week.py   
+    python3 s3_get_1week.py
+
 
 Here's how the code works:
 
-1. The code first creates an S3 client using the `boto3` library.
-2. It then specifies the name of the S3 bucket you want to delete versions from.
-3. The `list_objects_v2()` method is used to get a list of all the objects in the bucket.
-4. For each object, the code then uses the `list_object_versions()` method to get a list of all the versions of that object.
-5. The code sorts the versions by date in descending order (i.e., the most recent versions first).
-6. The code then gets the last modified date of the current version of the object.
-7. The code iterates through the previous versions of the object and get any versions that are less than one week older than the current version.
+1. First, we import the necessary libraries and set the AWS credentials and the S3 bucket name.
+2. We create an S3 client using the `boto3` library.
+3. We set the time threshold for deleting previous versions to one week (7 days) using the `datetime` and `timedelta` functions.
+4. We use the `list_objects_v2` function to get a list of all objects in the bucket.
+5. For each object, we use the `list_object_versions` function to get a list of all the versions of the object.
+6. We then iterate through the versions and check if the `LastModified` timestamp is less than the time threshold. If it is, we use the `delete_object` function to delete the version.
 
+Note that this code assumes that versioning is enabled on the S3 bucket. If versioning is not enabled, the `list_object_versions` function will not return any results, and the code will not work as expected.
 
-## 3 - Delete all previous versions of objects in an AWS S3 bucket that are less than one week older than the current version:
-
-bucket name and file for you. All you need to do is run the code:
-
-    python3 s3_delete_1week.py    
-
-Here's how the code works:
-
-1. The code first creates an S3 client using the `boto3` library.
-2. It then specifies the name of the S3 bucket you want to delete versions from.
-3. The `list_objects_v2()` method is used to get a list of all the objects in the bucket.
-4. For each object, the code then uses the `list_object_versions()` method to get a list of all the versions of that object.
-5. The code sorts the versions by date in descending order (i.e., the most recent versions first).
-6. The code then gets the last modified date of the current version of the object.
-7. The code iterates through the previous versions of the object and deletes any versions that are less than one week older than the current version.
-
-Note that you'll need to have the `boto3` library installed and have the necessary AWS credentials configured in your environment for this code to work. Also, make sure to replace `'your-bucket-name'` with the name of the S3 bucket you want to delete versions from.
+Also, make sure to replace the `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, and `BUCKET_NAME` variables with your own values.
 
 ## License
 Free to use with no obligation
 
+Existing Versions 
+
+Jan 1 - Original file 
+Jan 10 - version 2 - delete 
+Jan 12 - version 3 
+Jan 20 - version 4 - delete 
+Jan 22 - version 5
+Jan 30 - version 5
