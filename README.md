@@ -1,6 +1,6 @@
 # S3 Versions Management with Python
 
-Welcome. This code can help you find all the S3 object versions within a given bucket and check if versions are created within a week. 
+Welcome. This code can help you find all the S3 object versions within a given bucket and read all the versions. If there are versions created within a week apart, it will print them and mark for deletion. 
 
 ## Requirements
 
