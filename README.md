@@ -60,7 +60,7 @@ bucket name and file for you. All you need to do is run the code:
     python3 s3_get_1week.py
 
 
-Here's how the code works:
+Running above file will also create a CSF fukle under \log folder of all the scanned objectsHere's how the code works:
 
 1. First, we import the necessary libraries and set the AWS credentials and the S3 bucket name.
 2. We create an S3 client using the `boto3` library.
@@ -76,7 +76,7 @@ Also, make sure to replace the `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, and
 ## License
 Free to use with no obligation
 
-Existing Versions 
+Existing Versions - Example 
 
 Jan 1 - Original file 
 Jan 10 - version 2 - delete 
