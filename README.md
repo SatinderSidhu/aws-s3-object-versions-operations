@@ -1,4 +1,4 @@
-# AWS SDK for Python S3 Project
+# S3 Versions Management with Python
 
 Welcome. This code can help you find all the S3 object versions within a given bucket and check if versions are created within a week. 
 
